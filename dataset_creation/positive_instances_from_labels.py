@@ -21,11 +21,11 @@ import os
 import pandas as pd
 from tqdm import tqdm
 
-from dataset_creation_from_SNOMED.snomed_id import SnomedID
-from dataset_creation_from_SNOMED.positive_instances_utils import save_positive_instances
-from dataset_creation_from_SNOMED.positive_instances_utils import create_dataframes_without_duplicates
-from dataset_creation_from_SNOMED.positive_instances_utils import create_term_pairs
-from dataset_creation_from_SNOMED.positive_instances_utils import clean_pref_term
+from dataset_creation.snomed_id import SnomedID
+from dataset_creation.positive_instances_utils import save_positive_instances
+from dataset_creation.positive_instances_utils import create_dataframes_without_duplicates
+from dataset_creation.positive_instances_utils import create_term_pairs
+from dataset_creation.positive_instances_utils import clean_pref_term
 
 
 def _label_sanity_check(alt, pref, concept):
@@ -152,13 +152,14 @@ def get_pref_and_alt_labels(labels, concept):
 
 def positive_instances_from_labels(easy_hard_split,
                                    split_distance,
-                                   snomed_path,
+                                   snomed_description_path,
+                                   snomed_concept_path,
                                    dataset_path):
     # input SNOMED files
-    labels = pd.read_csv(os.path.join(snomed_path, "sct2_Description_Full-en_INT_20190131.txt"),
+    labels = pd.read_csv(snomed_description_path,
                          sep="\t", header=0,
                          quoting=csv.QUOTE_NONE, keep_default_na=False)
-    concepts = pd.read_csv(os.path.join(snomed_path, "sct2_Concept_Full_INT_20190131.txt"),
+    concepts = pd.read_csv(snomed_concept_path ,
                            sep="\t", header=0,
                            quoting=csv.QUOTE_NONE, keep_default_na=False)
 

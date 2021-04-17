@@ -21,11 +21,11 @@ import glob
 import pandas as pd
 from tqdm import tqdm
 
-from dataset_creation_from_SNOMED.snomed_id import SnomedID
-from dataset_creation_from_SNOMED.positive_instances_utils import create_term_pairs
-from dataset_creation_from_SNOMED.positive_instances_utils import save_positive_instances
-from dataset_creation_from_SNOMED.positive_instances_utils import create_dataframes_without_duplicates
-from dataset_creation_from_SNOMED.positive_instances_utils import clean_pref_term
+from dataset_creation.snomed_id import SnomedID
+from dataset_creation.positive_instances_utils import create_term_pairs
+from dataset_creation.positive_instances_utils import save_positive_instances
+from dataset_creation.positive_instances_utils import create_dataframes_without_duplicates
+from dataset_creation.positive_instances_utils import clean_pref_term
 
 
 def get_pref_label(concept, label_table):
@@ -106,18 +106,15 @@ def is_active(substitutes_core_module, source_id, target_id, deletion_reason):
 
 
 def positive_instances_from_substitutions(easy_hard_split,
-                                          split_distance,
-                                          snomed_path,
+                                          split_distance,                                          
+                                          snomed_description_path,
+                                          snomed_association_refset_path,
                                           dataset_path):
     # input SNOMED files
-    labels = \
-        pd.read_csv(os.path.join(snomed_path, "sct2_Description_Full-en_INT_20190131.txt"),
-                    sep="\t", header=0,
+    labels = pd.read_csv(snomed_description_path, sep="\t", header=0,
                     quoting=csv.QUOTE_NONE, keep_default_na=False)
-    substitutes = \
-        pd.read_csv(os.path.join(snomed_path, "der2_cRefset_AssociationFull_INT_20190131.txt"),
-                    sep="\t", header=0,
-                    quoting=csv.QUOTE_NONE, keep_default_na=False)
+    substitutes = pd.read_csv(snomed_association_refset_path,
+                    sep="\t", header=0, quoting=csv.QUOTE_NONE, keep_default_na=False)
 
     # get already created positive instances from labels to avoid duplicate term pairs
     syn_syn_instances = read_syn_syn_instances(dataset_path)

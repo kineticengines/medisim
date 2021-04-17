@@ -1,0 +1,18 @@
+
+snomed_description_path: "/home/daviddexter/kinetic-engines/medisim_dataset/sct2_Description_Full-en_INT_20210131.txt"
+
+snomed_concept_path: "/home/daviddexter/kinetic-engines/medisim_dataset/sct2_Concept_Full_INT_20210131.txt"
+
+snomed_association_refset_path: "/home/daviddexter/kinetic-engines/medisim_dataset/der2_cRefset_AssociationFull_INT_20210131.txt"
+
+dataset_path: "/home/daviddexter/kinetic-engines/medisim_dataset/"
+
+
+
+easy_hard_split: true
+
+split_distance: 5
+
+neg_sampling_strategies:
+  - advanced
+  - simple
